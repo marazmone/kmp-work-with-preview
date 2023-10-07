@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
@@ -30,9 +32,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
+                api("androidx.activity:activity-compose:1.8.0")
                 api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.1")
+                api("androidx.core:core-ktx:1.12.0")
             }
         }
         val iosX64Main by getting
@@ -65,4 +67,19 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    // Compose
+    val composeBom = platform("androidx.compose:compose-bom:2023.10.00")
+    implementation(composeBom)
+    // Android Studio Preview support
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
 }
